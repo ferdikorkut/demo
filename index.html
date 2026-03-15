@@ -1,13 +1,617 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero at vel consequuntur ipsum eum reiciendis quisquam doloribus veniam in obcaecati ut delectus expedita ab, odio numquam? Nemo esse iusto quod possimus dolore doloribus, quia sequi nobis maxime fugiat eligendi voluptate vero architecto a vel atque omnis nam necessitatibus non illo! Itaque tempore reprehenderit expedita dolorem, unde, assumenda atque incidunt consequuntur excepturi, architecto qui eum in optio quos culpa deserunt nobis doloribus molestias fugiat! Exercitationem porro nihil tempore, dolor vero nulla repellat, pariatur quasi dolore, saepe est ex sapiente fuga officia aspernatur explicabo magnam tenetur id non inventore debitis. Id, non!
-    </p>
-  </body>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop | 6 Ürünlü Modern Vitrin</title>
+
+
+<style>/* ===== CSS DEĞİŞKENLERİ (VARIABLES) ===== */
+:root {
+    /* Renk Paleti */
+    --primaryColor: #3a7afe;
+    --secondaryColor: #2c3e50;
+    --accentColor: #ff6b6b;
+    --successColor: #27ae60;
+    --warningColor: #f39c12;
+    --textDark: #333333;
+    --textLight: #666666;
+    --bgLight: #f8f9fa;
+    --white: #ffffff;
+    
+    /* Gölgeler */
+    --cardShadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --cardShadowHover: 0 15px 30px rgba(0, 0, 0, 0.15);
+    
+    /* Geçiş Süreleri */
+    --transitionFast: 0.2s ease;
+    --transitionNormal: 0.3s ease;
+    --transitionSlow: 0.5s ease;
+    
+    /* Font Boyutları (rem kullanımı) */
+    --fontSmall: 0.875rem;
+    --fontNormal: 1rem;
+    --fontMedium: 1.2rem;
+    --fontLarge: 1.5rem;
+    --fontXLarge: 2rem;
+}
+
+/* ===== RESET VE TEMEL STILLER ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--textDark);
+    background-color: var(--bgLight);
+}
+
+/* ===== HEADER STILLERI ===== */
+.header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo Stili */
+.logo {
+    font-size: var(--fontXLarge);
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--primaryColor);
+}
+
+/* Navigasyon Menüsü */
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--textDark);
+    font-weight: 500;
+    transition: color var(--transitionFast);
+}
+
+.main-nav a:hover {
+    color: var(--primaryColor);
+}
+
+/* ===== FLOAT DEMONSTRASYONU ===== */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.float-item {
+    float: left;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+/* ===== ÜRÜN GRID BÖLÜMÜ ===== */
+.products {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    
+    /* FLEXBOX GRID SİSTEMİ - 6 ürün için optimize edildi */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.section-title {
+    width: 100%;
+    text-align: center;
+    font-size: var(--fontLarge);
+    margin-bottom: 2rem;
+    color: var(--secondaryColor);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primaryColor);
+    border-radius: 2px;
+}
+
+.product-count {
+    font-size: var(--fontNormal);
+    color: var(--textLight);
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
+/* ===== KART TASARIMI ===== */
+.card {
+    /* Genişlik: px, %, rem karışımı - 6 kart için ideal boyut */
+    width: 320px;
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--cardShadow);
+    padding: 1.2rem;
+    
+    /* Geçiş Animasyonu */
+    transition: all var(--transitionNormal);
+    
+    /* Combinator örneği için alt elemanlar */
+    position: relative;
+    
+    /* 6 kart için responsive düzen */
+    flex: 0 1 auto;
+}
+
+/* Combinator: Direkt alt elemanlar */
+.card > h2 {
+    font-size: 1.3rem;
+    margin: 0.8rem 0;
+    color: var(--secondaryColor);
+}
+
+.card > p {
+    font-size: var(--fontSmall);
+    color: var(--textLight);
+    line-height: 1.5;
+}
+
+/* Görsel Konteynırı */
+.image-container {
+    width: 100%;
+    height: 200px; /* px ile sabit yükseklik */
+    position: relative;
+    overflow: hidden; /* Taşan içeriği gizle */
+    border-radius: 12px;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity var(--transitionNormal), transform var(--transitionNormal);
+}
+
+/* Opacity Hover Efekti */
+.card:hover .product-image {
+    opacity: 0.9;
+    transform: scale(1.08);
+}
+
+/* Görsel Overlay - Farklı renklerde */
+.image-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.image-overlay.new { background-color: var(--primaryColor); color: white; }
+.image-overlay.discount { background-color: var(--accentColor); color: white; }
+.image-overlay.limited { background-color: var(--warningColor); color: white; }
+.image-overlay.free-shipping { background-color: var(--successColor); color: white; }
+.image-overlay.featured { background-color: #9b59b6; color: white; }
+.image-overlay.bundle { background-color: #e67e22; color: white; }
+
+/* Hover Animasyonu - Kart Büyüme */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: var(--cardShadowHover);
+}
+
+/* Ürün Açıklaması - Overflow Test */
+.product-description {
+    height: 4.5rem; /* 3 satır için */
+    overflow: hidden; /* Uzun metinlerde taşmayı engelle */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Ürün Footer */
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #eee;
+}
+
+.price {
+    font-size: var(--fontMedium);
+    font-weight: 700;
+    color: var(--primaryColor);
+}
+
+/* Buton Tasarımı */
+.buy-btn {
+    background-color: var(--primaryColor);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--fontSmall);
+    transition: background-color var(--transitionFast), transform var(--transitionFast);
+}
+
+/* Outline Kullanımı - Focus durumu */
+.buy-btn:focus {
+    outline: 3px solid var(--primaryColor);
+    outline-offset: 2px;
+}
+
+.buy-btn:hover {
+    background-color: var(--secondaryColor);
+    transform: translateY(-2px);
+}
+
+/* ===== FOOTER STILLERI ===== */
+.footer {
+    background-color: var(--secondaryColor);
+    color: var(--white);
+    padding: 2.5rem 0;
+    margin-top: 3rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.footer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    font-size: var(--fontNormal);
+    opacity: 0.9;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.stat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background-color: var(--primaryColor);
+}
+
+.copyright {
+    font-size: var(--fontSmall);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.creator {
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* ===== RESPONSIVE TASARIM - 6 ürün için optimize edildi ===== */
+@media screen and (max-width: 1200px) {
+    .card {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .card {
+        width: 280px;
+    }
+    
+    .products {
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .products {
+        padding: 0 1rem;
+    }
+    
+    .footer-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .card {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .section-title {
+        font-size: var(--fontMedium);
+    }
+    
+    .product-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .buy-btn {
+        width: 100%;
+    }
+    
+    .price {
+        font-size: var(--fontLarge);
+    }
+}
+
+/* ===== KOMBINATOR ÖRNEKLERİ ===== */
+/* Card'ların sıralı stilleri */
+.card:nth-child(odd) {
+    border-top: 3px solid var(--primaryColor);
+}
+
+.card:nth-child(even) {
+    border-top: 3px solid var(--accentColor);
+}
+
+/* İlk 3 kart farklı stil */
+.card:nth-child(-n+3) .price {
+    color: var(--accentColor);
+    font-size: 1.3rem;
+}
+
+/* Son 3 kart farklı stil */
+.card:nth-child(n+4) .buy-btn {
+    background-color: var(--secondaryColor);
+}
+
+/* Hover durumunda buton renkleri */
+.card:hover .buy-btn {
+    background-color: var(--primaryColor);
+}
+
+/* Footer içindeki p etiketleri */
+footer p {
+    line-height: 1.8;
+}
+
+/* ===== ANİMASYONLAR ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Herbir kart için gecikmeli animasyon */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+/* ===== UTILITY CLASSES ===== */
+.text-center {
+    text-align: center;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+/* Hover efektleri için ek stiller */
+.card:hover .product-title {
+    color: var(--primaryColor);
+}
+
+/* Outline demonstrasyonu */
+.buy-btn:focus-visible {
+    outline: 3px solid var(--primaryColor);
+    outline-offset: 3px;
+}
+
+/* Overflow demonstrasyonu için uzun metin */
+.product-description:lang(tr) {
+    word-break: break-word;
+}</style>
+
+
+</head>
+<body>
+    <!-- HEADER BÖLÜMÜ -->
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo">My<span>Shop</span></h1>
+            
+            <!-- Navigasyon Menüsü -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Ana Sayfa</a></li>
+                    <li><a href="#">Ürünler</a></li>
+                    <li><a href="#">Kategoriler</a></li>
+                    <li><a href="#">İletişim</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Eski tip float ile kullanıcı menüsü (float demonstrasyonu) -->
+            <div class="user-menu clearfix">
+                <div class="user-icon float-item">👤</div>
+                <div class="cart-icon float-item">🛒</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ÜRÜN GRID BÖLÜMÜ -->
+    <section class="products">
+        <h2 class="section-title">Popüler Ürünler <span class="product-count">(6 ürün)</span></h2>
+        
+        <!-- Ürün Kartı 1 - Akıllı Telefon -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-1.png" alt="Akıllı Telefon" class="product-image">
+                <div class="image-overlay new">Yeni!</div>
+            </div>
+            <h2 class="product-title">Akıllı Telefon X10</h2>
+            <p class="product-description">6.5 inç ekran, 128GB depolama, yapay zeka destekli kamera ile gelen son teknoloji akıllı telefon.</p>
+            <div class="product-footer">
+                <span class="price">₺9.999</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+
+        <!-- Ürün Kartı 2 - Kablosuz Kulaklık -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-2.png" alt="Kablosuz Kulaklık" class="product-image">
+                <div class="image-overlay discount">%20 İndirim</div>
+            </div>
+            <h2 class="product-title">Kablosuz Kulaklık Pro</h2>
+            <p class="product-description">Aktif gürültü engelleme, 30 saat pil ömrü ve suya dayanıklı tasarım. Premium ses deneyimi.</p>
+            <div class="product-footer">
+                <span class="price">₺1.899</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+
+        <!-- Ürün Kartı 3 - Akıllı Saat -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-3.png" alt="Akıllı Saat" class="product-image">
+                <div class="image-overlay limited">Sınırlı Stok</div>
+            </div>
+            <h2 class="product-title">Akıllı Saat S5</h2>
+            <p class="product-description">Kalp ritmi takibi, SpO2 sensörü, 5 ATM suya dayanıklılık ve 7 gün pil ömrü.</p>
+            <div class="product-footer">
+                <span class="price">₺3.499</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+
+        <!-- Ürün Kartı 4 - Tablet -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-4.png" alt="Tablet" class="product-image">
+                <div class="image-overlay free-shipping">Kargo Bedava</div>
+            </div>
+            <h2 class="product-title">Tablet T8 Pro</h2>
+            <p class="product-description">10.5 inç Retina ekran, kalem desteği, 256GB depolama ve çoklu görev performansı için ideal tablet.</p>
+            <div class="product-footer">
+                <span class="price">₺7.499</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+
+        <!-- Ürün Kartı 5 - Dizüstü Bilgisayar -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-5.png" alt="Dizüstü Bilgisayar" class="product-image">
+                <div class="image-overlay featured">Öne Çıkan</div>
+            </div>
+            <h2 class="product-title">Ultrabook X1 Carbon</h2>
+            <p class="product-description">Intel i7 işlemci, 16GB RAM, 512GB SSD, 14 inç 4K ekran ve 12 saat pil ömrü ile üstün performans.</p>
+            <div class="product-footer">
+                <span class="price">₺15.999</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+
+        <!-- Ürün Kartı 6 - Oyun Konsolu -->
+        <article class="card">
+            <div class="image-container">
+                <img src="images/product-6.png" alt="Oyun Konsolu" class="product-image">
+                <div class="image-overlay bundle">Kampanyalı</div>
+            </div>
+            <h2 class="product-title">Oyun Konsolu Pro</h2>
+            <p class="product-description">1TB depolama, 4K oyun desteği, kablosuz kontrolcü ve 3 oyun hediye! Ailecek eğlence için ideal.</p>
+            <div class="product-footer">
+                <span class="price">₺8.499</span>
+                <button class="buy-btn">Hemen Al</button>
+            </div>
+        </article>
+    </section>
+
+    <!-- FOOTER BÖLÜMÜ -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-stats">
+                <p class="stat-item">📦 6 Ürün</p>
+                <p class="stat-item">⭐ 4.8 Ortalama Puan</p>
+                <p class="stat-item">🚚 Ücretsiz Kargo</p>
+            </div>
+            <p class="copyright">© 2026 MyShop. Tüm hakları saklıdır.</p>
+            <p class="creator">Bu proje CSS3 ödevi kapsamında hazırlanmıştır.</p>
+        </div>
+    </footer>
+</body>
 </html>
